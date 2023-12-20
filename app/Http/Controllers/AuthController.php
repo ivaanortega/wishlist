@@ -52,7 +52,8 @@ class AuthController extends Controller
             }
             
         }catch (Exception $e) {
-            console.log($e->getMessage());
+            //escribir un log en cosola con el error
+            error_log($e->getMessage());
         }
         
         return redirect()->intended('dashboard');
