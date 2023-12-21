@@ -25,39 +25,46 @@ class Products extends Model
     private static function addOrReplaceAmazonAffiliateTag($url)
     {
         //check if its an url
-        if($url == null || !filter_var($url, FILTER_VALIDATE_URL)) return $url;
+        //if($url == null || !filter_var($url, FILTER_VALIDATE_URL)) return dd($url);
+        $modifiedUrl = $url;
+        try {
+            $url = self::addAmazonAffiliateTag($url);
+            
+            $tagValue = config('services.amazon.affiliate_tag');
+            // Parse the URL
+            $urlParts = parse_url($url);
 
-        $tagValue = config('services.amazon.affiliate_tag');
-        // Parse the URL
-        $urlParts = parse_url($url);
+            // If there are query parameters in the URL
+            if (isset($urlParts['query'])) {
+                // Parse the query parameters
+                parse_str($urlParts['query'], $queryParameters);
 
-        // If there are query parameters in the URL
-        if (isset($urlParts['query'])) {
-            // Parse the query parameters
-            parse_str($urlParts['query'], $queryParameters);
+                // Check if the 'tag' parameter exists
+                if (isset($queryParameters['tag'])) {
+                    // Replace the 'tag' parameter value
+                    $queryParameters['tag'] = $tagValue;
+                } else {
+                    // Add the 'tag' parameter
+                    $queryParameters['tag'] = $tagValue;
+                }
 
-            // Check if the 'tag' parameter exists
-            if (isset($queryParameters['tag'])) {
-                // Replace the 'tag' parameter value
-                $queryParameters['tag'] = $tagValue;
+                // Build the modified query string
+                $modifiedQueryString = http_build_query($queryParameters);
+
+                // Update the URL with the modified query string
+                $urlParts['query'] = $modifiedQueryString;
             } else {
-                // Add the 'tag' parameter
-                $queryParameters['tag'] = $tagValue;
+                // If there are no existing query parameters, add the 'tag' parameter
+                $urlParts['query'] = 'tag=' . $tagValue;
             }
 
-            // Build the modified query string
-            $modifiedQueryString = http_build_query($queryParameters);
-
-            // Update the URL with the modified query string
-            $urlParts['query'] = $modifiedQueryString;
-        } else {
-            // If there are no existing query parameters, add the 'tag' parameter
-            $urlParts['query'] = 'tag=' . $tagValue;
+            // Rebuild the modified URL
+            $modifiedUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . $urlParts['path'] . '?' . $urlParts['query'];
+            
+            
+        } catch (\Throwable $th) {
+            //throw $th;
         }
-
-        // Rebuild the modified URL
-        $modifiedUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . $urlParts['path'] . '?' . $urlParts['query'];
-
         return $modifiedUrl;
     }
 }
