@@ -56,7 +56,7 @@ class AuthController extends Controller
             error_log($e->getMessage());
         }
         
-        return redirect()->intended('lists.index');
+        return redirect()->intended('lists');
        
            
       
