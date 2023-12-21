@@ -13,7 +13,7 @@
 
             @foreach ($list->products()->get() as $task)
                 <div
-                    class="w-72 bg-white dark:bg-gray-800 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+                    class="h-fit w-72 bg-white dark:bg-gray-800 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
 
                     <a href="{{ $task->url ? $task->url : '#' }}" target="_blank">
                         @if($task->image_url)
