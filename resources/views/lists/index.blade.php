@@ -25,7 +25,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                         @foreach ($lists as $task)
                             <tr>
                                 <td class="whitespace-nowrap px-6 py-4 font-medium hidden md:table-cell" >{{ $task->id }}</td>

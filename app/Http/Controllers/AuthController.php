@@ -56,7 +56,7 @@ class AuthController extends Controller
             error_log($e->getMessage());
         }
         
-        return redirect()->intended('dashboard');
+        return redirect()->intended('lists.index');
        
            
       

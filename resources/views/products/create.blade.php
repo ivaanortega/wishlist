@@ -30,7 +30,7 @@
                     </div>
                     <div>
                         <x-input-label for="description" :value="__('Description')" />
-                        <x-textarea-input id="description" name="description" type="textarea" class="mt-1 block w-full" required autofocus autocomplete="description" >
+                        <x-textarea-input id="description" name="description" type="textarea" class="mt-1 block w-full"  autofocus autocomplete="description" >
                             {{ old('description', '') }}
                         </x-textarea-input>
                         <x-input-error class="mt-2" :messages="$errors->get('description')" />
@@ -38,18 +38,18 @@
                     
                     <div>
                         <x-input-label for="url" :value="__('Product Url')" />
-                        <x-text-input id="url" name="url" type="url" class="mt-1 block w-full" :value="old('url', '')" required autofocus autocomplete="url" />
+                        <x-text-input id="url" name="url" type="url" class="mt-1 block w-full" :value="old('url', '')"  autofocus autocomplete="url" />
                         <x-input-error class="mt-2" :messages="$errors->get('url')" />
                     </div>
 
                     <div>
                         <x-input-label for="image_url" :value="__('Image Url')" />
-                        <x-text-input id="image_url" name="image_url" type="url" class="mt-1 block w-full" :value="old('image_url', '')" required autofocus autocomplete="image_url" />
+                        <x-text-input id="image_url" name="image_url" type="url" class="mt-1 block w-full" :value="old('image_url', '')"  autofocus autocomplete="image_url" />
                         <x-input-error class="mt-2" :messages="$errors->get('image_url')" />
                     </div>
                     <div>
                         <x-input-label for="price" :value="__('Price')" />
-                        <x-text-input id="price" name="price" type="number" class="mt-1 block w-full" :value="old('price', '')" required autofocus autocomplete="price" />
+                        <x-text-input id="price" name="price" type="number" class="mt-1 block w-full" :value="old('price', '')"  autofocus autocomplete="price" />
                         <x-input-error class="mt-2" :messages="$errors->get('price')" />
                     </div>
 

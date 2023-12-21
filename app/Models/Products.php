@@ -24,6 +24,9 @@ class Products extends Model
 
     private static function addOrReplaceAmazonAffiliateTag($url)
     {
+        //check if its an url
+        if($url == null || !filter_var($url, FILTER_VALIDATE_URL)) return $url;
+
         $tagValue = config('services.amazon.affiliate_tag');
         // Parse the URL
         $urlParts = parse_url($url);
