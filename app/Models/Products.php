@@ -27,9 +27,7 @@ class Products extends Model
         //check if its an url
         //if($url == null || !filter_var($url, FILTER_VALIDATE_URL)) return dd($url);
         $modifiedUrl = $url;
-        try {
-            $url = self::addAmazonAffiliateTag($url);
-            
+        try {            
             $tagValue = config('services.amazon.affiliate_tag');
             // Parse the URL
             $urlParts = parse_url($url);
@@ -62,8 +60,8 @@ class Products extends Model
             $modifiedUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . $urlParts['path'] . '?' . $urlParts['query'];
             
             
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (Error $th) {
+           
         }
         return $modifiedUrl;
     }
