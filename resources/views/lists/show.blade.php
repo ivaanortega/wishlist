@@ -1,21 +1,24 @@
 <x-guest2-layout>
 
-    <div>
+    <div class="min-h-screen">
         <div class="text-center p-10">
 
             <h1 class="text-3xl dark:text-white">{{ $list->name }}</h1>
         </div>
 
         <!-- ✅ Grid Section - Starts Here 👇 -->
+        <div >
         <section id="List"
-            class=" min-h-screen w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+            class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
 
             @foreach ($list->products()->get() as $task)
                 <div
                     class="w-72 bg-white dark:bg-gray-800 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
 
                     <a href="{{ $task->url ? $task->url : '#' }}" target="_blank">
-                        <img src={{ $task->image_url }} alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
+                        @if($task->image_url)
+                            <img src={{ $task->image_url }} alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
+                        @endif
                         <div class="px-4 py-3 w-72 text-black dark:text-white">
 
                             <p class="text-lg font-bold  block capitalize">{{ $task->name }}</p>
@@ -41,20 +44,22 @@
             @endforeach
 
         </section>
+        </div>
         <!-- Spacing -->
         <div class="h-20"></div>
-        <footer class="flex justify-center items-center h-16 bg-gray-200 dark:bg-gray-800">
-            @if (auth()->check())
-                <!-- User is authenticated, show create new list button -->
-                <a href="{{ route('products.create', $list->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
-                    {{ __('Add More Products') }}
-                </a>
-            @else
-                <!-- User is not authenticated, show login button -->
-                <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
-                    {{ __('Login') }}
-                </a>
-            @endif
-        </footer>
+        
     </div>
+    <footer class="flex justify-center items-center h-16 bg-gray-200 dark:bg-gray-800">
+        @if (auth()->check())
+            <!-- User is authenticated, show create new list button -->
+            <a href="{{ route('products.create', $list->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
+                {{ __('Add More Products') }}
+            </a>
+        @else
+            <!-- User is not authenticated, show login button -->
+            <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
+                {{ __('Login') }}
+            </a>
+        @endif
+    </footer>
 </x-guest2-layout>

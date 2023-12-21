@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-thin text-xl leading-tight">
             <a href="{{ route('lists.index') }}">{{__('Lists')}}</a> / 
-            <a href="{{ route('products.index',$product->id) }}">{{$list->name}}</a> / 
+            <a href="{{ route('products.index',$list->id) }}">{{$list->name}}</a> / 
             <span class="font-semibold capitalize">{{ $product->name }}</span>
         </h2>
     </x-slot>
