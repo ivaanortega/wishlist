@@ -16,11 +16,11 @@
                 <table class="min-w-full text-left text-sm font-light  w-full dark:text-gray-100">
                     <thead class="text-center sm:text-left border-b font-medium dark:border-neutral-500">
                         <tr>
-                            <th scope="col"  width="100" class="table-cell sm:table-cell px-6 py-4 ">#</th>
+                            <th scope="col"  width="100" class="hidden md:table-cell px-6 py-4 ">#</th>
                             <th scope="col" class="px-6 py-4">
                                 {{ __('Name') }}
                             </th>
-                            <th scope="col" width="200" class="px-6 py-3 bg-gray-50">
+                            <th scope="col" width="200" class="px-6 py-3 ">
 
                             </th>
                         </tr>
@@ -28,7 +28,7 @@
                     <tbody>
                         @foreach ($lists as $task)
                             <tr>
-                                <td class="whitespace-nowrap px-6 py-4 font-medium hidden sm:table-cell" >{{ $task->id }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 font-medium hidden md:table-cell" >{{ $task->id }}</td>
 
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <a href="{{ route('products.index', $task->id) }}" >

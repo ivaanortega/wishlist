@@ -28,7 +28,8 @@ class ProductsController extends Controller
      */
     public function create($id)
     {
-        return view('products.create',compact('id'));
+        $list = Auth::user()->lists()->findOrFail($id);
+        return view('products.create',compact('id','list'));
     }
 
     /**
