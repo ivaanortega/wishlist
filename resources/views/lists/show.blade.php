@@ -43,5 +43,18 @@
         </section>
         <!-- Spacing -->
         <div class="h-20"></div>
+        <footer class="flex justify-center items-center h-16 bg-gray-200 dark:bg-gray-800">
+            @if (auth()->check())
+                <!-- User is authenticated, show create new list button -->
+                <a href="{{ route('products.create', $list->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
+                    {{ __('Add More Products') }}
+                </a>
+            @else
+                <!-- User is not authenticated, show login button -->
+                <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
+                    {{ __('Login') }}
+                </a>
+            @endif
+        </footer>
     </div>
 </x-guest2-layout>

@@ -34,19 +34,7 @@
             {{ $slot }}
 
         </main>
-        <footer class="flex justify-center items-center h-16 bg-gray-200 dark:bg-gray-800">
-            @if (auth()->check())
-                <!-- User is authenticated, show create new list button -->
-                <a href="{{ route('lists.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
-                    {{ __('Create new list') }}
-                </a>
-            @else
-                <!-- User is not authenticated, show login button -->
-                <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600">
-                    {{ __('Login') }}
-                </a>
-            @endif
-        </footer>
+        
     </div>
 </body>
 
