@@ -24,45 +24,50 @@ class Products extends Model
 
     private static function addOrReplaceAmazonAffiliateTag($url)
     {
-        //check if its an url
-        //if($url == null || !filter_var($url, FILTER_VALIDATE_URL)) return dd($url);
+        // Comprobar si la URL está vacía o no es válida
+        if (empty($url) || !filter_var($url, FILTER_VALIDATE_URL)) {
+            return ''; // Retornar una cadena vacía si la URL no es válida
+        }
+
         $modifiedUrl = $url;
-        try {            
+        try {
             $tagValue = config('services.amazon.affiliate_tag');
-            // Parse the URL
+            // Parsear la URL
             $urlParts = parse_url($url);
 
-            // If there are query parameters in the URL
+            // Si la URL tiene parámetros de consulta
             if (isset($urlParts['query'])) {
-                // Parse the query parameters
+                // Parsear los parámetros de la consulta
                 parse_str($urlParts['query'], $queryParameters);
 
-                // Check if the 'tag' parameter exists
+                // Comprobar si el parámetro 'tag' existe
                 if (isset($queryParameters['tag'])) {
-                    // Replace the 'tag' parameter value
+                    // Reemplazar el valor del parámetro 'tag'
                     $queryParameters['tag'] = $tagValue;
                 } else {
-                    // Add the 'tag' parameter
+                    // Agregar el parámetro 'tag'
                     $queryParameters['tag'] = $tagValue;
                 }
 
-                // Build the modified query string
+                // Construir la cadena de consulta modificada
                 $modifiedQueryString = http_build_query($queryParameters);
 
-                // Update the URL with the modified query string
+                // Actualizar la URL con la cadena de consulta modificada
                 $urlParts['query'] = $modifiedQueryString;
             } else {
-                // If there are no existing query parameters, add the 'tag' parameter
+                // Si no existen parámetros de consulta, agregar el parámetro 'tag'
                 $urlParts['query'] = 'tag=' . $tagValue;
             }
 
-            // Rebuild the modified URL
+            // Reconstruir la URL modificada
             $modifiedUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . $urlParts['path'] . '?' . $urlParts['query'];
-            
-            
-        } catch (Error $th) {
-           
+
+        } catch (Exception $e) {
+            // Manejo de errores (en caso de que algo falle en el try)
+            // Puedes registrar el error en los logs o manejarlo de otra manera
+            return ''; // En caso de error, devolver una cadena vacía
         }
+
         return $modifiedUrl;
     }
 }
